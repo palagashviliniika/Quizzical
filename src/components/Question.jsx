@@ -8,13 +8,13 @@ export default function Question() {
             <div className="quiz-answer bg-[#D6DBF5] rounded-[15px] py-1 px-2">
                 <h3 className='quiz-answer-text'>Answer 1</h3>
             </div>
-            <div className="quiz-answer ">
+            <div className="quiz-answer border border-customPurple-button rounded-[15px] py-1 px-2">
                 <h3 className='quiz-answer-text'>Answer 2</h3>
             </div>
-            <div className="quiz-answer">
+            <div className="quiz-answer border border-customPurple-button rounded-[15px] py-1 px-2">
                 <h3 className='quiz-answer-text'>Answer 3</h3>
             </div>
-            <div className="quiz-answer">
+            <div className="quiz-answer border border-customPurple-button rounded-[15px] py-1 px-2">
                 <h3 className='quiz-answer-text'>Answer 4</h3>
             </div>
         </div>
