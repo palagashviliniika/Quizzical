@@ -1,22 +1,22 @@
-import React from 'react'
+import React, { useState } from 'react'
+import {decode} from 'he'
+import arrayShuffle from 'array-shuffle'
 
-export default function Question() {
+export default function Question(props) {
+    const [allAnswers, setAllAsnwers] = useState(arrayShuffle([props.correct_answer, ...props.incorrect_answers]))
+    const answers = allAnswers.map((answer, index) => {
+        return(
+            <div key={index} className="quiz-answer border border-customPurple-button rounded-[15px] py-1 px-2 cursor-pointer">
+                <h3 className='quiz-answer-text'>{decode(answer)}</h3>
+            </div>
+        )
+    })
+
   return (
     <div className='mt-5'>
-        <h1 className='quiz-question'>Question</h1>
+        <h1 className='quiz-question'>{decode(props.question)}</h1>
         <div className="quiz-answers flex gap-12 mt-4">
-            <div className="quiz-answer bg-[#D6DBF5] rounded-[15px] py-1 px-2">
-                <h3 className='quiz-answer-text'>Answer 1</h3>
-            </div>
-            <div className="quiz-answer border border-customPurple-button rounded-[15px] py-1 px-2">
-                <h3 className='quiz-answer-text'>Answer 2</h3>
-            </div>
-            <div className="quiz-answer border border-customPurple-button rounded-[15px] py-1 px-2">
-                <h3 className='quiz-answer-text'>Answer 3</h3>
-            </div>
-            <div className="quiz-answer border border-customPurple-button rounded-[15px] py-1 px-2">
-                <h3 className='quiz-answer-text'>Answer 4</h3>
-            </div>
+            {answers}
         </div>
         <hr className='mt-5'/>
     </div>
