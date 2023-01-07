@@ -15,7 +15,7 @@ export default function Question(props) {
             <div 
                 key={index}
                 onClick={() => props.handleAnswerClick(answer, props.question)}
-                className={props.selectedAnswer !== answer ? `border border-customPurple-button rounded-[15px] py-1 px-4 cursor-pointer` : `border border-customPurple-answer rounded-[15px] bg-customPurple-answer py-1 px-2 cursor-pointer`}
+                className={props.selectedAnswer !== answer ? `border border-customPurple-button rounded-[15px] py-1 px-4 cursor-pointer` : `border border-customPurple-answer rounded-[15px] bg-customPurple-answer py-1 px-4 cursor-pointer`}
             >
                 <h3 className='text-customPurple font-medium'>{decode(answer)}</h3>
             </div>
