@@ -3,7 +3,9 @@ import Question from '../components/Question'
 
 export default function Quiz() {
   const [quizData, setQuizData] = useState([])
-  
+  const [selectedData, setSelectedData] = useState([])
+
+
   useEffect(() => {
     let subscribed = true
     fetch("https://opentdb.com/api.php?amount=5")
@@ -11,9 +13,17 @@ export default function Quiz() {
       .then(data => {
         if(subscribed){
           setQuizData(data.results)
+          setSelectedData(data.results.map(question => {
+            return(
+              {
+                ...question,
+                selectedAnswer: ""
+              }
+            )
+          }))
         }
       })
-      console.log(quizData);
+      console.log(selectedData);
 
       return ()=>{
         console.log("cancelled")
@@ -21,11 +31,24 @@ export default function Quiz() {
       }
   }, [])
 
-  const questions = quizData.map((question, index) => {
+  function handleAnswerClick(answer, question){
+    console.log(answer);
+    console.log(question);
+    setSelectedData(prevData => prevData.map(singleQuestion => {
+        return singleQuestion.question === question 
+        ? {...singleQuestion, selectedAnswer: answer}
+        : singleQuestion
+      })
+    )
+    // console.log(selectedData);
+  }
+
+  const questions = selectedData.map((question, index) => {
     return(
       <Question 
         key={index}
         {...question}
+        handleAnswerClick = {handleAnswerClick}
       />
     )
   })

@@ -1,16 +1,28 @@
-import React, { useState } from 'react'
+import React, { useState, useId } from 'react'
 import {decode} from 'he'
 import arrayShuffle from 'array-shuffle'
 
 export default function Question(props) {
-    const [allAnswers, setAllAsnwers] = useState(arrayShuffle([props.correct_answer, ...props.incorrect_answers]))
+    const [allAnswers, setAllAnswers] = useState(arrayShuffle([props.correct_answer, ...props.incorrect_answers]))
+    
+    // function handleAnswerClick(answer, question){
+    //     console.log(answer);
+    //     console.log(question);
+    // }
+
     const answers = allAnswers.map((answer, index) => {
         return(
-            <div key={index} className="quiz-answer border border-customPurple-button rounded-[15px] py-1 px-2 cursor-pointer">
-                <h3 className='quiz-answer-text'>{decode(answer)}</h3>
+            <div 
+                key={index}
+                onClick={() => props.handleAnswerClick(answer, props.question)}
+                className={props.selectedAnswer !== answer ? `border border-customPurple-button rounded-[15px] py-1 px-4 cursor-pointer` : `border border-customPurple-answer rounded-[15px] bg-customPurple-answer py-1 px-2 cursor-pointer`}
+            >
+                <h3 className='text-customPurple font-medium'>{decode(answer)}</h3>
             </div>
         )
     })
+
+    console.log(props);
 
   return (
     <div className='mt-5'>
