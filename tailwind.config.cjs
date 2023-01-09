@@ -12,6 +12,11 @@ module.exports = {
           DEFAULT: "#293264",
           button: "#4D5B9E",
           answer: "#D6DBF5"
+        },
+
+        "checked": {
+          wrong: "#F8BCBC",
+          correct: "#94D7A2"
         }
       },
       fontFamily: {

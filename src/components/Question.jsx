@@ -12,17 +12,31 @@ export default function Question(props) {
 
     const answers = allAnswers.map((answer, index) => {
         return(
-            <div 
+            <button 
                 key={index}
                 onClick={() => props.handleAnswerClick(answer, props.question)}
-                className={props.selectedAnswer !== answer ? `border border-customPurple-button rounded-[15px] py-1 px-4 cursor-pointer` : `border border-customPurple-answer rounded-[15px] bg-customPurple-answer py-1 px-4 cursor-pointer`}
+                className=
+                    {`border border-customPurple-button rounded-[15px] py-1 px-4 cursor-pointer text-customPurple font-medium ${
+                        props.selectedAnswer !== answer ? `` : `border border-customPurple-answer rounded-[15px] bg-customPurple-answer`
+                        }
+                        
+                        ${
+                            props.checked && answer === props.correct_answer ? `border border-checked-correct rounded-[15px] bg-checked-correct` : `opacity-70`
+                        }
+
+                        ${
+                            props.checked && answer === props.selectedAnswer && answer !== props.correct_answer ? `border border-checked-wrong rounded-[15px] bg-checked-wrong` : ``
+                        }
+                        `
+                    }
+                disabled={props.checked}
             >
-                <h3 className='text-customPurple font-medium'>{decode(answer)}</h3>
-            </div>
+                {decode(answer)}
+            </button>
         )
     })
 
-    console.log(props);
+    // console.log(props.checked);
 
   return (
     <div className='mt-5'>

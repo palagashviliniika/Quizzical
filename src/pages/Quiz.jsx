@@ -4,7 +4,7 @@ import Question from '../components/Question'
 export default function Quiz() {
   const [quizData, setQuizData] = useState([])
   const [selectedData, setSelectedData] = useState([])
-
+  const [isChecked, setIsChecked] = useState(false)
 
   useEffect(() => {
     let subscribed = true
@@ -43,12 +43,24 @@ export default function Quiz() {
     // console.log(selectedData);
   }
 
+  function handleCheck(){
+    console.log(isChecked);
+    const selected = selectedData.filter(singleQuestion => singleQuestion.selectedAnswer !== "")
+    if(selected.length !== selectedData.length){
+      console.log("Please select all answers")
+    } else{
+      console.log("All Answers Selected")
+      setIsChecked(true)
+    }
+  }
+
   const questions = selectedData.map((question, index) => {
     return(
       <Question 
         key={index}
         {...question}
         handleAnswerClick = {handleAnswerClick}
+        checked={isChecked}
       />
     )
   })
@@ -57,6 +69,12 @@ export default function Quiz() {
     <div>
       <div className='quiz-form'>
         {questions}
+        <button 
+          onClick={handleCheck}
+          className='border border-customPurple-answer rounded-[10px] bg-customPurple-button text-white cursor-pointer py-3 px-7 my-10'
+        >
+          Check Answers
+        </button>
       </div>
     </div>
   )
