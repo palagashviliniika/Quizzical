@@ -1,15 +1,15 @@
-import React, { useState, useId } from 'react'
+import React, { useState, useEffect} from 'react'
 import {decode} from 'he'
 import arrayShuffle from 'array-shuffle'
 
 export default function Question(props) {
-    const [allAnswers, setAllAnswers] = useState(arrayShuffle([props.correct_answer, ...props.incorrect_answers]))
-    
-    // function handleAnswerClick(answer, question){
-    //     console.log(answer);
-    //     console.log(question);
-    // }
+    const [allAnswers, setAllAnswers] = useState([])
 
+    useEffect(() => {
+      setAllAnswers(arrayShuffle([props.correct_answer, ...props.incorrect_answers]))
+    
+    }, [props.question])
+    
     const answers = allAnswers.map((answer, index) => {
         return(
             <button 
@@ -21,26 +21,28 @@ export default function Question(props) {
                         }
                         
                         ${
-                            props.checked && answer === props.correct_answer ? `border border-checked-correct rounded-[15px] bg-checked-correct` : `opacity-70`
+                            props.checked.isChecked && answer === props.correct_answer ? `border border-checked-correct rounded-[15px] bg-checked-correct` : ``
                         }
 
                         ${
-                            props.checked && answer === props.selectedAnswer && answer !== props.correct_answer ? `border border-checked-wrong rounded-[15px] bg-checked-wrong` : ``
+                            props.checked.isChecked && answer === props.selectedAnswer && answer !== props.correct_answer ? `border border-checked-wrong rounded-[15px] bg-checked-wrong` : ``
+                        }
+
+                        ${
+                            props.checked.isChecked && answer !== props.correct_answer ? `opacity-70` : ``
                         }
                         `
                     }
-                disabled={props.checked}
+                disabled={props.checked.isChecked}
             >
                 {decode(answer)}
             </button>
         )
     })
 
-    // console.log(props.checked);
-
   return (
     <div className='mt-5'>
-        <h1 className='quiz-question'>{decode(props.question)}</h1>
+        <h1 className='text-xl font-bold text-customPurple'>{decode(props.question)}</h1>
         <div className="quiz-answers flex gap-12 mt-4">
             {answers}
         </div>
