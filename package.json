@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "array-shuffle": "^3.0.0",
+    "framer-motion": "^8.4.2",
     "he": "^1.2.0",
     "html-entities": "^2.3.3",
     "localforage": "^1.10.0",

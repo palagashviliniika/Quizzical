@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import Question from '../components/Question'
+import { AnimatePresence, motion } from "framer-motion"
+import {warningVariant} from "../animations/animations"
 
 export default function Quiz() {
   const [quizData, setQuizData] = useState([])
@@ -87,14 +89,18 @@ export default function Quiz() {
         <div>
           {questions}
         </div>
+
         <div className='flex items-center justify-center gap-5 my-7'>
-          {checked.message &&
-            <p className={
-              `font-bold text-base ${
-                checked.isChecked ? "text-customPurple " : "text-red-600"
-            }`
-          }>{checked.message}</p>
-          }
+
+          <AnimatePresence>
+            {checked.message &&
+              <motion.p variants={warningVariant} initial="initial" animate="animate" exit="exit" className={
+                `font-bold text-base ${
+                  checked.isChecked ? "text-customPurple " : "text-red-600"
+              }`
+              }>{checked.message}</motion.p>
+            }
+          </AnimatePresence>
           
             <button 
               onClick={handleCheck}
@@ -103,6 +109,7 @@ export default function Quiz() {
               {!checked.isChecked ? `Check Answers` : `Play Again`}
             </button>
         </div>
+        
       </div>
     </div>
   )
