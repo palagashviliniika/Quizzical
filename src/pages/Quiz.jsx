@@ -1,13 +1,14 @@
 import React, { useState, useEffect } from 'react'
 import Question from '../components/Question'
 import { AnimatePresence, motion } from "framer-motion"
-import {warningVariant} from "../animations/animations"
+import {warningVariant, welcomeVariant, quizVariantChildren, questionsVariant} from "../animations/animations"
 
 export default function Quiz() {
   const [quizData, setQuizData] = useState([])
   const [selectedData, setSelectedData] = useState([])
   const [checked, setChecked] = useState({})
   const [quizCount, setQuizCount] = useState(0)
+  const [loaded, setLoaded] = useState(false)
 
   useEffect(() => {
     let subscribed = true
@@ -15,6 +16,7 @@ export default function Quiz() {
       .then(res => res.json())
       .then(data => {
         if(subscribed){
+          setLoaded(true)
           setQuizData(data.results)
           setSelectedData(data.results.map(question => {
             return(
@@ -53,6 +55,7 @@ export default function Quiz() {
   function handleCheck(){
     console.log(checked);
     if(checked.isChecked){
+      setLoaded(false)
       setQuizCount(prevCount => prevCount + 1)
 
     } else{
@@ -84,16 +87,22 @@ export default function Quiz() {
   })
 
   return (
-    <div>
-      <div className='flex flex-col items-center justify-center h-screen'>
-        <div>
-          {questions}
-        </div>
+    <motion.div variants={welcomeVariant} initial="initial" animate="animate" exit="exit">
+      <motion.div variants={quizVariantChildren} className='flex flex-col items-center justify-center h-screen'>
+        {/* started adding loading animation, using loaded const for listening whether questions is loaded */}
+        {
+          loaded && 
+            <motion.div variants={questionsVariant} className="overflow-hidden">
+              {questions}
+            </motion.div>
+        }
+        
 
         <div className='flex items-center justify-center gap-5 my-7'>
 
           <AnimatePresence>
-            {checked.message &&
+            {/* using loaded const for quickly hiding warning text in animation */}
+            {checked.message && loaded &&
               <motion.p variants={warningVariant} initial="initial" animate="animate" exit="exit" className={
                 `font-bold text-base ${
                   checked.isChecked ? "text-customPurple " : "text-red-600"
@@ -104,13 +113,13 @@ export default function Quiz() {
           
             <button 
               onClick={handleCheck}
-              className='border border-customPurple-answer rounded-[10px] bg-customPurple-button text-white cursor-pointer py-3 px-7'
+              className='border border-customPurple-answer rounded-[10px] bg-customPurple-button text-white cursor-pointer py-3 px-7 transition ease-out hover:scale-110 hover:bg-indigo-500 duration-300 active:scale-90'
             >
               {!checked.isChecked ? `Check Answers` : `Play Again`}
             </button>
         </div>
         
-      </div>
-    </div>
+      </motion.div>
+    </motion.div>
   )
 }

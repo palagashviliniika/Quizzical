@@ -21,7 +21,7 @@ export default function Home() {
               <span className='animate-ping delay-100'>.</span>
           </motion.p>
           <Link 
-            className='home-start bg-customPurple-button text-white font-sans no-underline font-medium rounded-2xl px-[32px] py-[16px] mt-3 transition ease-out hover:scale-110 hover:bg-indigo-500 duration-300 active:translate-y-1' to = "/quiz">
+            className='home-start bg-customPurple-button text-white font-sans no-underline font-medium rounded-2xl px-[32px] py-[16px] mt-3 transition ease-out hover:scale-110 hover:bg-indigo-500 duration-300 active:scale-90' to = "/quiz">
               Start Quiz
           </Link>
       </motion.div>

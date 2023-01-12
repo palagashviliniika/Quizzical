@@ -22,7 +22,6 @@ export const warningVariant = {
     animate: {
       transition: {
         staggerChildren: 0.5,
-        repeat: Infinity
       }
     }
   }
@@ -41,6 +40,44 @@ export const warningVariant = {
     },
     exit: {
       opacity: 0
+    }
+  }
+
+  export const quizVariantChildren = {
+    initial: {
+      opacity: 0
+    },
+    animate: {
+      opacity: 1,
+      transition: {
+        duration: 1
+      }
+    },
+    exit: {
+      opacity: 0
+    }
+  }
+
+  export const questionsVariant = {
+    initial: {
+      opacity: 0,
+      height: 0
+    },
+    animate: {
+      height: 600,
+      opacity: 1,
+      transition: {
+        duration: 2,
+        delay: 1
+      }
+    },
+    exit: {
+      opacity: 0,
+      height: 0,
+      transition: {
+        duration: 2,
+        delay: 1
+      }
     }
   }
 
